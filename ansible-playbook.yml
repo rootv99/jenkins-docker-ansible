@@ -1,0 +1,15 @@
+- hosts: webserver
+  become: true
+  tasks:
+    - name: start docker
+      service: 
+        name: docker
+        state: started
+        enabled: true
+    - name: start docker container
+      docker_container:
+        name: jenkinsdocker
+        image: "rootv/jenkinsdocker"
+        state: started
+        exposed_ports: "80/tcp"
+        published_ports: "8083:80/tcp"
